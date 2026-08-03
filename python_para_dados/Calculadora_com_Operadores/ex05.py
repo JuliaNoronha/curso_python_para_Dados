@@ -1,5 +1,5 @@
-numerador = int(input("Digite um número: "))
-denominador = int(input("Digite um número(não pode ser zero): "))
+numerador = float(input("Digite um número: "))
+denominador = float(input("Digite um número(não pode ser zero): "))
 
 divisao = numerador / denominador
 
