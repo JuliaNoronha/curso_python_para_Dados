@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python para Dados — Aquecendo na Programação</title>
+<style>
+:root{
+  --bg:#0f1115;--panel:#171a21;--panel2:#1f2430;--border:#2d3442;
+  --text:#eef2f7;--muted:#a8b0bd;--accent:#5fb0ff;--accent2:#b38cff;
+  --ok:#7ee0c3;--warn:#f2c94c;--danger:#ff7b7b;--code:#0b0d11;
+  --shadow:0 8px 30px rgba(0,0,0,.25);--radius:14px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{color:inherit;text-decoration:none}.layout{display:flex;min-height:100vh}
+aside{width:292px;position:fixed;inset:0 auto 0 0;background:var(--panel);border-right:1px solid var(--border);padding:20px 14px;overflow:auto}
+.brand{font-weight:800;font-size:1.08rem;margin-bottom:4px}.subtitle{color:var(--muted);font-size:.82rem;margin-bottom:18px}
+.progress-box{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:14px;font-size:.82rem}
+.progress-track{height:7px;background:var(--code);border-radius:99px;overflow:hidden;margin-top:7px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.25s}
+nav a{display:block;padding:8px 10px;border-radius:9px;color:var(--muted);font-size:.88rem;margin:2px 0}nav a:hover{background:var(--panel2);color:var(--text)}
+main{margin-left:292px;width:calc(100% - 292px)}.top{position:sticky;top:0;z-index:10;padding:14px 22px;background:rgba(15,17,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.content{max-width:980px;margin:0 auto;padding:34px 22px 70px}h1{font-size:2rem;margin:0 0 10px}h2{margin-top:0}h3{margin-bottom:6px}.lead{color:var(--muted);margin:0 0 24px}
+.notice,.concept,.warning,.success{border-radius:12px;padding:14px 16px;margin:14px 0}.notice{background:rgba(95,176,255,.08);border:1px solid rgba(95,176,255,.3)}
+.concept{background:rgba(179,140,255,.08);border:1px solid rgba(179,140,255,.28)}.warning{background:rgba(242,201,76,.08);border:1px solid rgba(242,201,76,.28)}.success{background:rgba(126,224,195,.08);border:1px solid rgba(126,224,195,.28)}
+section{scroll-margin-top:80px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin:18px 0;box-shadow:var(--shadow)}
+section p,li{color:var(--muted)}strong{color:var(--text)}code{font-family:"Cascadia Code","Fira Code",Consolas,monospace;font-size:.9rem;color:#e7edf6}
+pre{margin:0;background:var(--code);border:1px solid var(--border);border-radius:10px;padding:16px;overflow:auto}.code-wrap{position:relative;margin:10px 0}.copy{position:absolute;top:8px;right:8px;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:5px 9px;cursor:pointer;font-size:.75rem}.copy:hover{border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:14px}.card h3{margin-top:0}.tag{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;font-size:.74rem;color:var(--muted);margin:2px}
+.flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:18px 0}.flow span{background:var(--panel2);border:1px solid var(--border);padding:9px 12px;border-radius:9px;font-size:.88rem}.arrow{color:var(--accent);font-weight:bold}
+.exercise{border-top:1px solid var(--border);padding-top:18px;margin-top:18px}.exercise:first-of-type{border-top:0;padding-top:0}.exercise-head{display:flex;gap:10px;align-items:flex-start}.exercise input[type=checkbox]{margin-top:7px;transform:scale(1.15);accent-color:var(--accent)}
+.details{margin:10px 0;border:1px solid var(--border);border-radius:10px;background:var(--panel2)}details summary{cursor:pointer;padding:10px 12px;font-weight:700}details>div{padding:0 12px 12px;color:var(--muted)}
+.question{border-left:3px solid var(--accent);padding:8px 12px;margin:9px 0;background:rgba(95,176,255,.05)}.mini{font-size:.86rem;color:var(--muted)}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid var(--border);padding:9px 10px;text-align:left}th{background:var(--panel2)}td{color:var(--muted)}
+button.reset{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:7px 10px;cursor:pointer;width:100%;margin-top:10px}button.reset:hover{color:var(--text);border-color:var(--danger)}
+footer{max-width:980px;margin:0 auto;padding:0 22px 40px;color:var(--muted);font-size:.82rem}
+@media(max-width:880px){aside{position:static;width:100%}.layout{display:block}main{margin-left:0;width:100%}.top{position:static}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}}
+@media(max-width:600px){nav,.grid{grid-template-columns:1fr}.content{padding:22px 14px 50px}section{padding:16px}h1{font-size:1.55rem}.flow{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="brand">Python para Dados</div>
+  <div class="subtitle">Aquecendo na programação — Alura</div>
+  <div class="progress-box">Progresso dos exercícios: <strong id="progressText">0/13</strong><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+  <nav>
+    <a href="#como-usar">Como usar a aula</a><a href="#fluxo">Fluxo de um programa</a><a href="#entrada">Entrada e conversão</a><a href="#comparacao">Comparações</a><a href="#condicionais">Condicionais</a><a href="#operadores">Operadores</a><a href="#strings">Strings</a><a href="#maior-menor">Maior e menor</a><a href="#ordenacao">Ordenação</a><a href="#percentual">Variação percentual</a><a href="#exercicios-1-9">Questões 1 a 9</a><a href="#projetos">Projetos 10 a 13</a><a href="#checklist">Checklist final</a>
+  </nav>
+  <button class="reset" onclick="resetProgress()">Limpar progresso</button>
+</aside>
+<main>
+<div class="top"><strong>Entrada → processamento → decisão → saída</strong></div>
+<div class="content">
+  <h1>Aquecendo na programação com Python</h1>
+  <p class="lead">Uma aula para entender os conceitos necessários para resolver as 13 atividades, sem transformar o estudo em simples cópia de respostas.</p>
+
+  <section id="como-usar">
+    <h2>Como usar esta aula</h2>
+    <div class="notice"><strong>Ordem recomendada:</strong> estude um conceito, leia o roteiro da questão, escreva sua solução e somente depois abra as dicas progressivas.</div>
+    <div class="grid">
+      <div class="card"><h3>1. Entenda</h3><p>Identifique quais dados entram, qual decisão precisa ser tomada e qual mensagem deve sair.</p></div>
+      <div class="card"><h3>2. Planeje</h3><p>Escreva o raciocínio em português ou pseudocódigo antes de programar.</p></div>
+      <div class="card"><h3>3. Implemente</h3><p>Converta cada passo do plano em uma instrução Python.</p></div>
+      <div class="card"><h3>4. Teste</h3><p>Use valores normais, valores iguais, zero, negativos e entradas com letras maiúsculas.</p></div>
+    </div>
+  </section>
+
+  <section id="fluxo">
+    <h2>1. O fluxo básico de um programa</h2>
+    <div class="flow"><span>Entrada</span><span class="arrow">→</span><span>Conversão</span><span class="arrow">→</span><span>Processamento</span><span class="arrow">→</span><span>Decisão</span><span class="arrow">→</span><span>Saída</span></div>
+    <p>Quase todas as atividades desta lista seguem esse mesmo caminho.</p>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code># 1. Entrada
+texto = input("Digite um número: ")
+
+# 2. Conversão
+numero = float(texto)
+
+# 3. Processamento ou decisão
+resultado = numero * 2
+
+# 4. Saída
+print(resultado)</code></pre></div>
+    <div class="question"><strong>Pergunta ativa:</strong> por que o valor retornado por <code>input()</code> precisa ser convertido antes de fazer uma conta?</div>
+  </section>
+
+  <section id="entrada">
+    <h2>2. Entrada de dados e conversão de tipos</h2>
+    <p><code>input()</code> sempre retorna texto. Você escolhe a conversão conforme o dado esperado.</p>
+    <div class="table-wrap"><table><thead><tr><th>Conversão</th><th>Uso</th><th>Exemplo</th></tr></thead><tbody>
+      <tr><td><code>int()</code></td><td>Números inteiros</td><td>Quantidade de itens</td></tr>
+      <tr><td><code>float()</code></td><td>Números com casas decimais</td><td>Preço, percentual, litros</td></tr>
+      <tr><td>Sem conversão</td><td>Texto</td><td>Turno, combustível, letra</td></tr>
+    </tbody></table></div>
+    <div class="warning"><strong>Atenção:</strong> valores monetários reais normalmente exigem cuidados adicionais, mas nesta introdução o curso utiliza <code>float</code> para praticar lógica.</div>
+  </section>
+
+  <section id="comparacao">
+    <h2>3. Operadores de comparação</h2>
+    <p>Uma comparação produz apenas dois resultados: <code>True</code> ou <code>False</code>.</p>
+    <div class="grid">
+      <div class="card"><code>&gt;</code> maior que</div><div class="card"><code>&lt;</code> menor que</div><div class="card"><code>&gt;=</code> maior ou igual</div><div class="card"><code>&lt;=</code> menor ou igual</div><div class="card"><code>==</code> igual</div><div class="card"><code>!=</code> diferente</div>
+    </div>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>idade = 18
+print(idade >= 18)  # True
+print(idade == 20)  # False</code></pre></div>
+    <div class="warning"><strong>Erro comum:</strong> <code>=</code> atribui um valor; <code>==</code> compara dois valores.</div>
+  </section>
+
+  <section id="condicionais">
+    <h2>4. Estruturas condicionais</h2>
+    <p>Use condicionais quando o programa precisa escolher um caminho.</p>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>if condição_1:
+    # executado quando condição_1 é verdadeira
+elif condição_2:
+    # executado quando condição_2 é verdadeira
+else:
+    # executado quando nenhuma anterior é verdadeira</code></pre></div>
+    <div class="concept"><strong>Regra importante:</strong> o Python testa as condições de cima para baixo e para na primeira condição verdadeira.</div>
+    <h3>Condições compostas</h3>
+    <div class="grid"><div class="card"><strong><code>and</code></strong><p>As duas condições precisam ser verdadeiras.</p></div><div class="card"><strong><code>or</code></strong><p>Pelo menos uma condição precisa ser verdadeira.</p></div><div class="card"><strong><code>not</code></strong><p>Inverte o resultado lógico.</p></div><div class="card"><strong>Encadeada</strong><p>Uma decisão pode ficar dentro de outra.</p></div></div>
+  </section>
+
+  <section id="operadores">
+    <h2>5. Operadores matemáticos necessários</h2>
+    <div class="table-wrap"><table><thead><tr><th>Operador</th><th>Significado</th><th>Uso na lista</th></tr></thead><tbody>
+      <tr><td><code>+</code></td><td>Soma</td><td>Regra do triângulo</td></tr><tr><td><code>-</code></td><td>Subtração</td><td>Variação e descontos</td></tr><tr><td><code>*</code></td><td>Multiplicação</td><td>Preço total e desconto</td></tr><tr><td><code>/</code></td><td>Divisão comum</td><td>Variação percentual</td></tr><tr><td><code>%</code></td><td>Resto da divisão</td><td>Par ou ímpar</td></tr>
+    </tbody></table></div>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>numero = 8
+resto = numero % 2
+print(resto)  # 0</code></pre></div>
+    <p>Um número é par quando o resto da divisão por 2 é zero.</p>
+  </section>
+
+  <section id="strings">
+    <h2>6. Normalização e comparação de textos</h2>
+    <p>Uma pessoa pode digitar <code>Manhã</code>, <code>MANHÃ</code> ou espaços extras. Normalize antes de comparar.</p>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>entrada = input("Digite uma opção: ")
+opcao = entrada.strip().lower()</code></pre></div>
+    <div class="grid"><div class="card"><strong><code>strip()</code></strong><p>Remove espaços no início e no fim.</p></div><div class="card"><strong><code>lower()</code></strong><p>Converte as letras para minúsculas.</p></div><div class="card"><strong><code>upper()</code></strong><p>Converte as letras para maiúsculas.</p></div><div class="card"><strong><code>in</code></strong><p>Verifica se um valor pertence a uma coleção.</p></div></div>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>letra = "a"
+if letra in "aeiou":
+    print("A letra está no grupo das vogais")</code></pre></div>
+  </section>
+
+  <section id="maior-menor">
+    <h2>7. Encontrando maior e menor valor</h2>
+    <p>Você pode praticar comparações manualmente ou utilizar funções nativas.</p>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>valores = [12.5, 10.0, 14.8]
+maior = max(valores)
+menor = min(valores)</code></pre></div>
+    <div class="concept"><strong>Aprendizado:</strong> <code>max()</code> e <code>min()</code> recebem vários valores ou uma coleção e retornam o maior e o menor.</div>
+  </section>
+
+  <section id="ordenacao">
+    <h2>8. Ordenação</h2>
+    <p>A questão 6 pede três números em ordem decrescente.</p>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>numeros = [8, 3, 12]
+numeros.sort(reverse=True)
+print(numeros)</code></pre></div>
+    <p><code>sort()</code> altera a própria lista. O argumento <code>reverse=True</code> inverte a ordem para decrescente.</p>
+    <details class="details"><summary>Alternativa conceitual sem sort</summary><div>Também é possível comparar e trocar posições manualmente. Essa abordagem treina condicionais, mas fica mais longa e sujeita a erros.</div></details>
+  </section>
+
+  <section id="percentual">
+    <h2>9. Cálculo de variação percentual</h2>
+    <p>A variação mede quanto o valor novo aumentou ou diminuiu em relação ao valor anterior.</p>
+    <div class="concept"><strong>Fórmula:</strong> <code>((valor_novo - valor_anterior) / valor_anterior) * 100</code></div>
+    <div class="code-wrap"><button class="copy">Copiar</button><pre><code>valor_anterior = 100
+valor_novo = 120
+variacao = ((valor_novo - valor_anterior) / valor_anterior) * 100</code></pre></div>
+    <div class="warning"><strong>Caso especial:</strong> se o valor anterior for zero, a divisão não pode ser realizada. O programa precisa tratar esse caso.</div>
+  </section>
+
+  <section id="exercicios-1-9">
+    <h2>Questões 1 a 9 — roteiro de raciocínio</h2>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q1"><div><h3>1. Exibir o maior entre dois números</h3><p><span class="tag">input</span><span class="tag">conversão</span><span class="tag">if</span><span class="tag">comparação</span></p></div></div>
+      <div class="question">Quais são os três resultados possíveis ao comparar dois números?</div>
+      <details class="details"><summary>Dica 1</summary><div>O primeiro pode ser maior, o segundo pode ser maior ou os dois podem ser iguais.</div></details>
+      <details class="details"><summary>Pseudocódigo</summary><div>Ler número A → ler número B → comparar → mostrar o maior ou informar igualdade.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q2"><div><h3>2. Crescimento ou decrescimento</h3><p><span class="tag">float</span><span class="tag">positivo</span><span class="tag">negativo</span><span class="tag">zero</span></p></div></div>
+      <div class="question">O que deve acontecer quando o percentual for exatamente zero?</div>
+      <details class="details"><summary>Dica progressiva</summary><div>Use três casos: maior que zero, menor que zero e igual a zero.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q3"><div><h3>3. Vogal ou consoante</h3><p><span class="tag">string</span><span class="tag">lower</span><span class="tag">in</span></p></div></div>
+      <div class="question">Como evitar escrever cinco comparações separadas para as vogais?</div>
+      <details class="details"><summary>Dica progressiva</summary><div>Normalize a letra e verifique se ela está dentro de <code>"aeiou"</code>.</div></details>
+      <details class="details"><summary>Teste extra</summary><div>Pense no que fazer se a pessoa digitar mais de um caractere ou um número.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q4"><div><h3>4. Maior e menor preço em três anos</h3><p><span class="tag">float</span><span class="tag">lista</span><span class="tag">max</span><span class="tag">min</span></p></div></div>
+      <details class="details"><summary>Pseudocódigo</summary><div>Ler os três preços → agrupar os valores → encontrar maior → encontrar menor → exibir ambos.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q5"><div><h3>5. Produto mais barato</h3><p><span class="tag">comparação</span><span class="tag">identificação</span><span class="tag">empate</span></p></div></div>
+      <div class="question">Além do preço, qual informação precisa ser preservada para exibir o produto correto?</div>
+      <details class="details"><summary>Dica progressiva</summary><div>Associe cada preço ao nome ou número do produto. Considere também a possibilidade de empate.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q6"><div><h3>6. Três números em ordem decrescente</h3><p><span class="tag">lista</span><span class="tag">sort</span><span class="tag">reverse</span></p></div></div>
+      <details class="details"><summary>Dica progressiva</summary><div>Coloque os três números em uma lista e ordene com <code>reverse=True</code>.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q7"><div><h3>7. Saudação conforme o turno</h3><p><span class="tag">string</span><span class="tag">normalização</span><span class="tag">if/elif/else</span></p></div></div>
+      <details class="details"><summary>Pseudocódigo</summary><div>Ler turno → remover espaços e normalizar → testar manhã → testar tarde → testar noite → caso contrário, valor inválido.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q8"><div><h3>8. Par ou ímpar</h3><p><span class="tag">int</span><span class="tag">módulo %</span></p></div></div>
+      <div class="question">Qual resto indica que um número é divisível por 2?</div>
+      <details class="details"><summary>Dica progressiva</summary><div>Compare <code>numero % 2</code> com zero.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q9"><div><h3>9. Inteiro ou decimal</h3><p><span class="tag">float</span><span class="tag">is_integer</span></p></div></div>
+      <div class="code-wrap"><button class="copy">Copiar</button><pre><code>numero = 7.0
+print(numero.is_integer())  # True</code></pre></div>
+      <p>Mesmo armazenado como <code>float</code>, um valor pode representar matematicamente um inteiro.</p>
+      <details class="details"><summary>Dica progressiva</summary><div>Leia como <code>float</code> e utilize <code>is_integer()</code>.</div></details>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <h2>Momento dos projetos — questões 10 a 13</h2>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q10"><div><h3>10. Calculadora com classificação do resultado</h3><p><span class="tag">operações</span><span class="tag">condicionais</span><span class="tag">classificação</span></p></div></div>
+      <div class="flow"><span>Ler números</span><span class="arrow">→</span><span>Escolher operação</span><span class="arrow">→</span><span>Calcular</span><span class="arrow">→</span><span>Classificar resultado</span></div>
+      <h4>Divida o problema em duas partes</h4>
+      <ol><li>Selecionar e executar a operação.</li><li>Analisar o resultado: par/ímpar, positivo/negativo e inteiro/decimal.</li></ol>
+      <details class="details"><summary>Dica 1 — operação</summary><div>Compare a opção digitada com símbolos como <code>+</code>, <code>-</code>, <code>*</code> e <code>/</code>.</div></details>
+      <details class="details"><summary>Dica 2 — divisão</summary><div>Antes de dividir, verifique se o segundo número é diferente de zero.</div></details>
+      <details class="details"><summary>Dica 3 — paridade</summary><div>Par ou ímpar só se aplica diretamente quando o resultado é inteiro. Verifique isso antes.</div></details>
+      <div class="question"><strong>Planejamento:</strong> quais variáveis você precisa manter depois que a operação termina?</div>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q11"><div><h3>11. Validação e classificação de triângulos</h3><p><span class="tag">and</span><span class="tag">comparações</span><span class="tag">igualdade</span></p></div></div>
+      <h4>Etapa 1 — validar</h4><div class="concept"><code>a + b &gt; c</code> <strong>e</strong> <code>a + c &gt; b</code> <strong>e</strong> <code>b + c &gt; a</code></div>
+      <h4>Etapa 2 — classificar</h4><ul><li>Três lados iguais → equilátero.</li><li>Pelo menos dois lados iguais → isósceles.</li><li>Todos diferentes → escaleno.</li></ul>
+      <details class="details"><summary>Ordem recomendada das condições</summary><div>Primeiro valide se existe triângulo. Só depois classifique. Na classificação, teste primeiro o caso mais específico: os três lados iguais.</div></details>
+      <div class="question">Por que não faz sentido classificar os lados antes de validar a existência do triângulo?</div>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q12"><div><h3>12. Cálculo do combustível com desconto</h3><p><span class="tag">regra de negócio</span><span class="tag">percentual</span><span class="tag">if aninhado</span></p></div></div>
+      <div class="flow"><span>Tipo</span><span class="arrow">→</span><span>Preço por litro</span><span class="arrow">→</span><span>Faixa de litros</span><span class="arrow">→</span><span>Desconto</span><span class="arrow">→</span><span>Total</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Combustível</th><th>Até 15 L</th><th>Acima de 15 L</th><th>Preço/L</th></tr></thead><tbody><tr><td>Etanol</td><td>2%</td><td>4%</td><td>R$ 1,70</td></tr><tr><td>Diesel</td><td>3%</td><td>5%</td><td>R$ 2,00</td></tr></tbody></table></div>
+      <div class="concept"><strong>Cálculos:</strong><br><code>valor_bruto = preco_litro * litros</code><br><code>valor_desconto = valor_bruto * percentual_desconto</code><br><code>valor_final = valor_bruto - valor_desconto</code></div>
+      <details class="details"><summary>Dica estrutural</summary><div>Primeiro descubra o combustível. Dentro desse caso, descubra a faixa de litros. Assim você define preço e percentual antes do cálculo final.</div></details>
+      <details class="details"><summary>Percentuais em Python</summary><div>2% = <code>0.02</code>, 3% = <code>0.03</code>, 4% = <code>0.04</code> e 5% = <code>0.05</code>.</div></details>
+    </div>
+
+    <div class="exercise"><div class="exercise-head"><input class="task" type="checkbox" id="q13"><div><h3>13. Variação anual de vendas</h3><p><span class="tag">variação percentual</span><span class="tag">faixas</span><span class="tag">ordem das condições</span></p></div></div>
+      <div class="concept"><code>variacao = ((vendas_2023 - vendas_2022) / vendas_2022) * 100</code></div>
+      <h4>Monte as faixas sem sobreposição</h4>
+      <div class="table-wrap"><table><thead><tr><th>Faixa</th><th>Sugestão</th></tr></thead><tbody><tr><td>Acima de 20%</td><td>Bonificação</td></tr><tr><td>De 2% até 20%</td><td>Pequena bonificação</td></tr><tr><td>De -10% até abaixo de 2%</td><td>Planejamento de incentivos</td></tr><tr><td>Abaixo de -10%</td><td>Corte de gastos</td></tr></tbody></table></div>
+      <div class="warning"><strong>Interpretação adotada:</strong> o enunciado apresenta “entre 2% e -10%”. Para evitar sobreposição com a faixa anterior, trate essa região como valores de <strong>-10% até abaixo de 2%</strong>.</div>
+      <details class="details"><summary>Dica sobre a ordem</summary><div>Comece pela maior faixa e vá descendo, ou escreva limites explícitos com <code>and</code>. O importante é cada valor cair em apenas uma categoria.</div></details>
+      <details class="details"><summary>Caso especial</summary><div>Se as vendas de 2022 forem zero, não é possível dividir por esse valor. Trate essa situação antes da fórmula.</div></details>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>Checklist antes de considerar uma questão pronta</h2>
+    <div class="grid"><div class="card"><h3>Entrada</h3><p>Usei o tipo correto: <code>int</code>, <code>float</code> ou texto?</p></div><div class="card"><h3>Condições</h3><p>As faixas cobrem todos os casos sem sobreposição?</p></div><div class="card"><h3>Limites</h3><p>Testei igualdade, zero, negativos, empates e divisões por zero?</p></div><div class="card"><h3>Saída</h3><p>A mensagem informa claramente o resultado solicitado?</p></div></div>
+    <h3>Testes mínimos</h3>
+    <ul><li>Um valor que torne a primeira condição verdadeira.</li><li>Um valor para cada <code>elif</code>.</li><li>Um valor que chegue ao <code>else</code>.</li><li>Valores exatamente nos limites, como 15 litros, 20%, 2% e -10%.</li></ul>
+    <div class="success"><strong>Meta da aula:</strong> conseguir olhar para um enunciado, separar entrada, processamento, decisão e saída, e então transformar cada etapa em Python.</div>
+  </section>
+</div>
+<footer>Aula de apoio — Python para Dados · Exercícios “Aquecendo na programação”. O progresso é salvo localmente no navegador.</footer>
+</main>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(btn=>{btn.addEventListener('click',async()=>{const code=btn.parentElement.querySelector('code').innerText;await navigator.clipboard.writeText(code);const old=btn.textContent;btn.textContent='Copiado!';setTimeout(()=>btn.textContent=old,1200)})});
+const tasks=[...document.querySelectorAll('.task')];
+function updateProgress(){const done=tasks.filter(t=>t.checked).length;document.getElementById('progressText').textContent=`${done}/13`;document.getElementById('progressFill').style.width=`${(done/13)*100}%`;tasks.forEach(t=>localStorage.setItem('python-dados-'+t.id,t.checked?'1':'0'))}
+tasks.forEach(t=>{t.checked=localStorage.getItem('python-dados-'+t.id)==='1';t.addEventListener('change',updateProgress)});updateProgress();
+function resetProgress(){tasks.forEach(t=>{t.checked=false;localStorage.removeItem('python-dados-'+t.id)});updateProgress()}
+</script>
+</body>
+</html>
