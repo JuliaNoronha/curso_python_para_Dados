@@ -3,7 +3,7 @@ num2 = float(input("Digite outro número: "))
 operacao = input("Qual operação quer fazer? escolha entre soma, subtração, multiplicação e divisão ")
 
 operacao = operacao.lower()
-resultado = None;
+resultado = None
 
 if "soma" in operacao:
     resultado = num1 + num2
